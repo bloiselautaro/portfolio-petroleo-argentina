@@ -1,0 +1,59 @@
+name: ETL Petroleo Argentina
+
+on:
+  schedule:
+    - cron: '17 14 * * 1-5'  # 11:17 ART
+  workflow_dispatch:
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Instalar dependencias
+        run: pip install google-cloud-bigquery requests "dbt-core==1.7.9" dbt-bigquery "protobuf<5,>=4.25.3"
+
+      - name: Escribir credencial de GCP
+        run: echo '${{ secrets.GCP_SA_KEY }}' > petroleo-etl-key.json
+
+      - name: Correr extractores
+        working-directory: etl
+        run: |
+          python extractor_produccion.py
+          python extractor_precios.py
+
+      - name: Escribir profiles.yml de dbt
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml << EOF
+          petroleo_ar:
+            target: dev
+            outputs:
+              dev:
+                type: bigquery
+                method: service-account
+                project: portfolio-petroleo-argentina
+                dataset: analytics_petroleo
+                threads: 4
+                keyfile: ${{ github.workspace }}/petroleo-etl-key.json
+                location: US
+          EOF
+
+      - name: dbt run
+        working-directory: dbt_project/petroleo_ar
+        env:
+          DBT_SEND_ANONYMOUS_USAGE_STATS: "False"
+        run: |
+          dbt deps
+          dbt run
+
+      - name: dbt test
+        working-directory: dbt_project/petroleo_ar
+        run: dbt test
