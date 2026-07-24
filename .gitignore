@@ -1,0 +1,26 @@
+@'
+# Credenciales y secretos
+*.json
+!package.json
+.env
+
+# Muestras de datos locales (no versionar CSVs pesados)
+*.csv
+
+# Contexto interno para IA (no público)
+docs/CONTEXT.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# dbt
+dbt_project/petroleo_ar/target/
+dbt_project/petroleo_ar/dbt_packages/
+dbt_project/petroleo_ar/logs/
+
+# Editor
+.vscode/
+'@ | Out-File -FilePath .gitignore -Encoding utf8

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: fct_produccion
+    columns:
+      - name: produccion_id
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_precios_surtidor
+    columns:
+      - name: precio_id
+        tests:
+          - unique
+          - not_null
