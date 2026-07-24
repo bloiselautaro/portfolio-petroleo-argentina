@@ -24,3 +24,9 @@ dbt_project/petroleo_ar/logs/
 # Editor
 .vscode/
 '@ | Out-File -FilePath .gitignore -Encoding utf8
+# Documento de continuidad interno (no publico)
+context.md
+
+# Logs de dbt
+dbt_project/logs/
+dbt_project/petroleo_ar/logs/
