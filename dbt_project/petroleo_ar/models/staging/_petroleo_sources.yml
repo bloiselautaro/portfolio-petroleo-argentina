@@ -8,3 +8,4 @@ sources:
       - name: produccion_petroleo
       - name: precios_surtidor
       - name: precio_brent
+      - name: precios_historicos_raw
