@@ -27,7 +27,9 @@ jobs:
         working-directory: etl
         run: |
           python extractor_produccion.py
+          python extractor_produccion_empresa.py
           python extractor_precios.py
+          python extractor_brent.py
 
       - name: Escribir profiles.yml de dbt
         run: |
