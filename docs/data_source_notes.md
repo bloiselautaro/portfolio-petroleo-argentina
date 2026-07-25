@@ -63,3 +63,13 @@ idempresabandera, empresabandera, latitud, longitud, geojson
 - Algunas coordenadas no coinciden geograficamente con la provincia declarada (posible
   error de carga del lado de la EESS al declarar). Revisar si hace falta un filtro de
   sanidad geografica antes de usar el mapa en Looker Studio.
+  ## Fuente 4 — Producción de petróleo por empresa
+
+- Dataset: mismo dataset que Fuente 1 ("Producción de petróleo por provincia"),
+  recurso distinto.
+- URL descarga: http://datos.energia.gob.ar/dataset/590d1284-fd6d-4686-afd8-b3da5d90a6e9/resource/2c1f455e-0103-4d51-8f94-a49c939ac0a1/download/produccin-de-petrleo-promedio-diaria-por-empresa.csv
+- Formato: CSV, mismo patron que Fuente 1
+- Volumen: 12.642 filas (2009-actualidad)
+- Columnas: anio, mes, indice_tiempo, empresa, produccion_petroleo_promedio_dia_m3
+- Se espera el mismo bug de "ultimo mes con carga parcial" que Fuente 1 (misma
+  fuente/organismo). Aplicar es_periodo_confiable con el mismo criterio.

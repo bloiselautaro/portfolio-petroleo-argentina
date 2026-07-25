@@ -14,3 +14,10 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: fct_produccion_empresa
+    columns:
+      - name: produccion_empresa_id
+        tests:
+          - unique
+          - not_null
