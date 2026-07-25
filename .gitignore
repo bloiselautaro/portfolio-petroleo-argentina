@@ -30,3 +30,5 @@ context.md
 # Logs de dbt
 dbt_project/logs/
 dbt_project/petroleo_ar/logs/
+# Logs sueltos de dbt en la raiz
+logs/

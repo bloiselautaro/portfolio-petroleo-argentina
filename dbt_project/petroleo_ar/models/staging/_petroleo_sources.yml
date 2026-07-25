@@ -7,3 +7,4 @@ sources:
     tables:
       - name: produccion_petroleo
       - name: precios_surtidor
+      - name: precio_brent
