@@ -14,7 +14,7 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 def descargar_csv() -> Path:
     logger.info(f"Descargando {URL}")
-    response = requests.get(URL, headers=HEADERS, timeout=60)
+    response = requests.get(URL, headers=HEADERS, timeout=120)
     response.raise_for_status()
     LOCAL_PATH.write_bytes(response.content)
     logger.info(f"CSV guardado en {LOCAL_PATH} ({len(response.content)} bytes)")

@@ -2,7 +2,7 @@ name: ETL Petroleo Argentina
 
 on:
   schedule:
-    - cron: '17 14 * * 1-5'  # 11:17 ART
+    - cron: '17 14 * * 1-5'
   workflow_dispatch:
 
 jobs:
@@ -23,13 +23,17 @@ jobs:
       - name: Escribir credencial de GCP
         run: echo '${{ secrets.GCP_SA_KEY }}' > petroleo-etl-key.json
 
-      - name: Correr extractores
+      - name: Correr extractores principales
         working-directory: etl
         run: |
           python extractor_produccion.py
           python extractor_produccion_empresa.py
           python extractor_precios.py
-          python extractor_brent.py
+
+      - name: Correr extractor de Brent (tolerante a fallos)
+        working-directory: etl
+        continue-on-error: true
+        run: python extractor_brent.py
 
       - name: Escribir profiles.yml de dbt
         run: |
